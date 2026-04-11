@@ -25,14 +25,20 @@
 	</head>
 	<body>
 		<header>
-			<a href="/">Gourmet au Catering</a>
-			<nav>
-				<ul>
-					<li>Le Catering</li>
-				</ul>
-			</nav>
-			<img src="./assets/hamburger.jpg" alt="Hamburger" />
-			<h1>Le Catering</h1>
+			<div>
+				<a href="/">Gourmet au Catering</a>
+				<nav>
+					<ul>
+						<li>About</li>
+						<li>Menu</li>
+						<li>Contact</li>
+					</ul>
+				</nav>
+			</div>
+			<div>
+				<img src="./assets/hamburger.jpg" alt="Hamburger" />
+				<h1>Le catering</h1>
+			</div>
 		</header>
 
 		<main>
@@ -66,7 +72,7 @@
 				</div>
 			</section>
 
-			<section class="menu">
+			<section id="menu">
 				<img src="./assets/tablesetting2.jpg" alt="Table setting" />
 				<div>
 					<h2>Our Menu</h2>
@@ -126,11 +132,35 @@
 						>catering@catering.com</a
 					>, or you can send us a message here:
 				</address>
+				<form>
+					<label>
+						<input
+							type="text"
+							name="reservationName"
+							id="reservationName"
+						/>
+					</label>
+					<label>
+						<input type="number" name="guestNum" id="guestNum" />
+					</label>
+					<label>
+						<input
+							type="date"
+							name="reservationDate"
+							id="reservationDate"
+						/>
+					</label>
+					<label>
+						<input type="text" name="notes" id="notes" />
+					</label>
+				</form>
 			</section>
 
 			<section id="dish-carousel"></section>
 		</main>
 
-		<footer></footer>
+		<footer>
+			<p>Copyright © 2026 GourMe Caterging. All Rights Reserved.</p>
+		</footer>
 	</body>
 </html>

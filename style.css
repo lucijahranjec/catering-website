@@ -7,7 +7,7 @@
 }
 
 body {
-    font-size: 16px;
+	font-size: 16px;
 }
 
 h1,
@@ -28,5 +28,81 @@ p {
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
-    text-wrap: pretty;
+	text-wrap: pretty;
 }
+
+/*--------------------------------------------------HEADER-------------*/
+header,
+main {
+	max-width: 1600px;
+	margin: 0 auto;
+}
+
+header {
+	div:first-child {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 54.5px;
+		padding: 0 16px;
+		letter-spacing: 4px;
+		font-size: 14px;
+		line-height: 22.5px;
+		background-color: white;
+		box-shadow:
+			0 2px 5px 0 rgba(0, 0, 0, 0.16),
+			0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+	}
+
+	div:first-child > a {
+		padding: 8px 16px;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	div:nth-child(2) {
+		position: relative;
+
+		> img {
+			height: auto;
+			width: 100%;
+		}
+
+		h1 {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			padding: 22px 34px;
+			font-size: 34px;
+			color: #54575d;
+		}
+	}
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: 5px;
+}
+
+nav ul {
+	display: flex;
+	list-style-type: none;
+
+	li {
+		padding: 8px 16px;
+	}
+
+	li:hover {
+		cursor: pointer;
+		background-color: #cccccc;
+	}
+}
+
+/*---------------------------------------------MAIN---------*/

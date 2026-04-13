@@ -37,6 +37,13 @@ button {
 	text-wrap: pretty;
 }
 
+img {
+	display: block;
+	width: 100%;
+	height: auto;
+	min-width: 0;
+}
+
 /*--------------------------------------------------HEADER-------------*/
 header {
 	max-width: 1600px;
@@ -72,10 +79,10 @@ header {
 	div:nth-child(2) {
 		position: relative;
 
-		> img {
+		/* > img {
 			height: auto;
 			width: 100%;
-		}
+		} */
 
 		h1 {
 			position: absolute;
@@ -106,6 +113,11 @@ nav ul {
 		cursor: pointer;
 		background-color: #cccccc;
 	}
+
+	a {
+		text-decoration: none;
+		color: black;
+	}
 }
 
 /*---------------------------------------------MAIN---------*/
@@ -128,24 +140,29 @@ main {
 	}
 }
 
+/*---------------------------------------------ABOUT---------*/
 #about,
 #menu {
 	display: flex;
+	flex-direction: row;
+	min-width: 0;
 	max-width: 1100px;
+	width: 100%;
 	justify-content: center;
+}
+
+#about, #menu, #contact {
+	scroll-margin-top: 75px;
 }
 
 .section-h2 {
 	font-size: 33px;
 }
 
-/*---------------------------------------------ABOUT---------*/
-
 #about {
 	img {
-		display: block;
 		flex: 1;
-		min-width: 0;
+		/* min-width: 0; */
 		padding: 12px 24px;
 		opacity: 0.75;
 	}
@@ -216,10 +233,7 @@ main {
 	}
 
 	img {
-		display: block;
 		flex: 1;
-		width: 100%;
-		min-width: 0;
 		padding: 12px 24px;
 		opacity: 0.75;
 	}
@@ -295,6 +309,11 @@ footer {
 @media screen and (max-width: 600px) {
 	header > div nav {
 		display: none;
+	}
+
+	#about,
+	#menu {
+		flex-direction: column;
 	}
 }
 

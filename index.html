@@ -57,7 +57,8 @@
 							ullamco laboris nisi ut aliquip ex ea commodo
 							consequat. Duis aute iruredolor in reprehenderit in
 							voluptate velit esse cillum dolore eu fugiat nulla
-							pariatur. We only use <span>seasonal</span> ingredients.
+							pariatur. We only use
+							<span>seasonal</span> ingredients.
 						</p>
 						<p>
 							Excepteur sint occaecat cupidatat non proident, sunt
@@ -120,8 +121,8 @@
 
 			<hr />
 
-			<section class="contact">
-				<h2>Contact</h2>
+			<section id="contact">
+				<h2 class="section-h2">Contact</h2>
 				<p>
 					We offer full-service catering for any event, large or
 					small. We understand your needs and we will cater the food
@@ -129,34 +130,48 @@
 					taste. Do not hesitate to contact us.
 				</p>
 				<address>
-					Catering Service, 42nd Living St, 43043 New York, NY You can
-					also contact us by phone
+					Catering Service, 42nd Living St, 43043 New York, NY
+				</address>
+				<p>
+					You can also contact us by phone
 					<a href="tel:+005531232323">00553123-2323</a> or email
 					<a href="mailto:catering@catering.com"
 						>catering@catering.com</a
 					>, or you can send us a message here:
-				</address>
+				</p>
 				<form>
-					<label>
-						<input
-							type="text"
-							name="reservationName"
-							id="reservationName"
-						/>
-					</label>
-					<label>
-						<input type="number" name="guestNum" id="guestNum" />
-					</label>
-					<label>
-						<input
-							type="date"
-							name="reservationDate"
-							id="reservationDate"
-						/>
-					</label>
-					<label>
-						<input type="text" name="notes" id="notes" />
-					</label>
+					<label for="reservationName"> Name </label>
+					<input
+						type="text"
+						name="reservationName"
+						id="reservationName"
+						placeholder="Name"
+					/>
+
+					<label for="tableSize"> How many people </label>
+					<input
+						type="number"
+						name="tableSize"
+						id="tableSize"
+						placeholder="How many people"
+					/>
+
+					<label for="reservationDate">Date & time </label>
+					<input
+						type="datetime-local"
+						name="reservationDate"
+						id="reservationDate"
+						placeholder=""
+					/>
+
+					<label for="notes"> Message \ Special requirements </label>
+					<input
+						type="text"
+						name="notes"
+						id="notes"
+						placeholder="Message \ Special requirements"
+					/>
+					<button>SEND MESSAGE</button>
 				</form>
 			</section>
 
@@ -164,7 +179,7 @@
 		</main>
 
 		<footer>
-			<p>Copyright © 2026 GourMe Caterging. All Rights Reserved.</p>
+			<p>Copyright © 2026 GourMe Catering. All Rights Reserved.</p>
 		</footer>
 	</body>
 </html>

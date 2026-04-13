@@ -28,7 +28,7 @@ h6,
 	text-wrap: balance;
 }
 
-p {
+p, button {
 	font-family: "Times New Roman", Georgia, Serif;
 	font-optical-sizing: auto;
 	font-weight: 400;
@@ -132,6 +132,10 @@ main {
 	justify-content: center;
 }
 
+.section-h2 {
+	font-size: 33px;
+}
+
 /*---------------------------------------------ABOUT---------*/
 
 #about {
@@ -154,7 +158,6 @@ main {
 	row-gap: 18px;
 
 	.section-h2 {
-		font-size: 33px;
 		padding-bottom: 22px;
 	}
 
@@ -192,7 +195,6 @@ main {
 	}
 
 	> div .section-h2 {
-		font-size: 33px;
 		align-self: center;
 		padding-bottom: 10px;
 	}
@@ -221,3 +223,53 @@ main {
 }
 
 /*---------------------------------------------CONTACT---------*/
+#contact {
+	display: flex;
+	flex-flow: column wrap;
+	row-gap: 18px;
+	padding: 0 16px;
+
+	.section-h2 {
+		margin-bottom: 30px;
+	}
+
+	address {
+		font-size: 18px;
+		font-weight: 600;
+		color: #607D8B;
+		font-style: normal;
+	}
+
+	a {
+		text-decoration: none;
+		color: #607D8B;;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+
+	form button {
+		padding: 9px 16px;
+		background-color: #f1f1f1;
+		align-self: flex-start;
+		border: none;
+		font-size: 15px;
+		margin-top: 10px;
+	}
+
+	label {
+		visibility: hidden;
+		height: 0;
+		width: 0;
+	}
+
+	#reservationName, #reservationDate, #tableSize, #notes {
+		padding: 16px 8px;
+		border: none;
+		border-bottom: 2px solid rgb(204, 204, 204);
+		width: 100%;
+	}
+}

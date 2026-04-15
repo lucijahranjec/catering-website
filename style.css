@@ -300,8 +300,8 @@ main {
 	}
 
 	#reservationName,
-	#reservationDate,
-	#tableSize,
+	#orderDate,
+	#servingSize,
 	#notes {
 		padding: 16px 8px;
 		border: none;

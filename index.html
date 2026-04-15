@@ -140,7 +140,7 @@
 					>, or you can send us a message here:
 				</p>
 				<form>
-					<label for="reservationName"> Name </label>
+					<label for="reservationName" required> Name </label>
 					<input
 						type="text"
 						name="reservationName"
@@ -148,20 +148,19 @@
 						placeholder="Name"
 					/>
 
-					<label for="tableSize"> How many people </label>
+					<label for="servingSize" required> How many people </label>
 					<input
 						type="number"
-						name="tableSize"
-						id="tableSize"
+						name="servingSize"
+						id="servingSize"
 						placeholder="How many people"
 					/>
 
-					<label for="reservationDate">Date & time </label>
+					<label for="orderDate" required>Date & time </label>
 					<input
 						type="datetime-local"
-						name="reservationDate"
-						id="reservationDate"
-						placeholder=""
+						name="orderDate"
+						id="orderDate"
 					/>
 
 					<label for="notes"> Message \ Special requirements </label>

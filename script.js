@@ -25,6 +25,5 @@ orderDateInput.min = formatTimeForInputValue(minDate);
 
 const maxDate = new Date();
 maxDate.setMonth(maxDate.getMonth() + 7); //Order possible up to 6 months in advance
-maxDate.setDate(1);
 maxDate.setHours(0, 0, 0, 0);
 orderDateInput.max = formatTimeForInputValue(maxDate);

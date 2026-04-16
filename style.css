@@ -93,11 +93,6 @@ header {
 	div:nth-child(2) {
 		position: relative;
 
-		/* > img {
-			height: auto;
-			width: 100%;
-		} */
-
 		h1 {
 			position: absolute;
 			bottom: 0;
@@ -302,7 +297,7 @@ main {
 	#reservationName,
 	#orderDate,
 	#servingSize,
-	#notes {
+	#message {
 		padding: 16px 8px;
 		border: none;
 		border-bottom: 2px solid rgb(204, 204, 204);

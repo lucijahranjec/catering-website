@@ -8,14 +8,14 @@
 
 @font-face {
     font-family: 'TimesPSMT';
-    src: url('../fonts/TimesNewRomanPSMT.ttf') format('truetype');
+    src: url('../assets/fonts/TimesNewRomanPSMTRegular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'TimesPSMT';
-    src: url('../fonts/TimesNewRomanPSMT-Bold.ttf') format('truetype');
+    src: url('../assets/fonts/TimesNewRomanPSMTBold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
 }
@@ -228,9 +228,15 @@ main {
 		padding-bottom: 10px;
 	}
 
+	> div .dish-item {
+		display: inline-block;
+	}
+
 	> div .dish-item > h3 {
 		font-size: 20px;
 		padding: 10px 0;
+		position: relative;
+		display: inline-block;
 	}
 
 	> div .dish-item p {
@@ -245,6 +251,22 @@ main {
 		flex: 1;
 		padding: 12px 24px;
 		opacity: 0.75;
+	}
+
+	> div .dish-item > h3::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: 7px;
+		width: 0;
+		height: 2px;
+		background-color: #cfdfa9;
+		transition: width 0.3s ease;
+;
+	}
+
+	> div .dish-item > h3:hover::after {
+		width: 100%;
 	}
 }
 

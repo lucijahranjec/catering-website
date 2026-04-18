@@ -43,5 +43,19 @@ contactForm.addEventListener("submit", (e) => {
 	servingSizeInput.value = "";
 	setDateConstraintsAndValue(orderDateInput);
 	messageInput.value = "";
-	alert("Your message")
+	alert("Your message");
+});
+
+//-------------Name input validation
+nameInput.addEventListener("input", (e) => {
+	const target = e.target;
+	const isInvalidChar = /[^a-zA-Z\s]/.test(target.value);
+
+	if (isInvalidChar) {
+		target.setCustomValidity("Only letters and spaces are allowed");
+		target.reportValidity(); //Show errors
+	
+	} else {
+		target.setCustomValidity(""); //Clear errors
+	}
 });

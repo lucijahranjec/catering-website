@@ -54,8 +54,49 @@ nameInput.addEventListener("input", (e) => {
 	if (isInvalidChar) {
 		target.setCustomValidity("Only letters and spaces are allowed");
 		target.reportValidity(); //Show errors
-	
 	} else {
 		target.setCustomValidity(""); //Clear errors
 	}
 });
+
+//--------------Slideshow
+const slideshowContainer = document.getElementById("dish-slideshow-container");
+const prevBtn = slideshowContainer.querySelector(".prev");
+const images = [
+	{ filename: "dish1.jpeg", alt: "Bean & Corn Curry"},
+	{ filename: "dish2.jpeg", alt: "Baked Pear with Toasted Almond Slivers"},
+	{ filename: "dish3.jpeg", alt: "Fig Granola"},
+	{ filename: "dish4.jpeg", alt: "Hummus"},
+	{ filename: "dish5.jpeg", alt: "Clams & Garlic Bruschette"},
+	{ filename: "dish6.jpeg", alt: "Lentil Stew with Sprouts"},
+	{ filename: "dish7.jpeg", alt: "Fresh Coconut & Pistachio Granola"},
+	{ filename: "dish8.jpeg", alt: "Fig Compote & Pecan Cream"},
+	{ filename: "dish9.jpeg", alt: "Crowned steak"},
+	{ filename: "dish10.jpeg", alt: "Strawberry, Pecan, Figs & Spinach Salad"},
+	{ filename: "dish11.jpeg", alt: "Cauliflower steak & cashew hummus"},
+	{ filename: "dish12.jpeg", alt: "Mint-Cashew Icecream"},
+	{ filename: "dish13.jpeg", alt: "Chickpea & Walnut Pie"},
+];
+
+const createSlides = () => {
+	images.forEach((obj, i) => {
+		const slide = document.createElement("div");
+		slide.className = "slide";
+		const imgNum = document.createElement("div");
+		imgNum.textContent = `${i + 1} / 13`;
+
+		if (i === 0) {
+			slide.classList.add("active");
+		}
+
+		const img = document.createElement("img");
+		const filepath = "./assets/images/slideshow/";
+		img.src = `${filepath}${obj.filename}`;
+		img.alt = obj.alt;
+		slide.append(imgNum, img);
+		slideshowContainer.insertBefore(slide, prevBtn);
+	});
+
+};
+
+createSlides();

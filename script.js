@@ -62,9 +62,7 @@ nameInput.addEventListener("input", (e) => {
 //--------------Slideshow
 const slideshowContainer = document.getElementById("dish-slideshow-container");
 const prevBtn = slideshowContainer.querySelector(".prev");
-const thumbnailContainer = slideshowContainer.getElementById(
-	"thumbnail-container",
-);
+const thumbnailContainer = document.getElementById("thumbnail-container");
 const imgCaption = slideshowContainer.querySelector(".caption-container h3");
 
 const imagesArr = [
@@ -84,7 +82,7 @@ const imagesArr = [
 ];
 
 const loadImage = (filename) => {
-	return new Promise((resolve, reject) => { 
+	return new Promise((resolve, reject) => {
 		const img = new Image();
 
 		img.addEventListener("load", () => resolve(img));
@@ -96,23 +94,42 @@ const loadImage = (filename) => {
 	});
 };
 
-const createSlides = () => {
-	imagesArr.forEach((obj, i) => {
-		const slide = document.createElement("div");
-		slide.className = "slide";
-		const imgNumText = document.createElement("div");
-		imgNumText.className = "img-number";
-		imgNumText.textContent = `${i + 1} / 13`;
+const createSlidesAndThumbnails = async () => {
+	try {
+		const loadedImages = await Promise.allSettled(
+			imagesArr.map((obj) => loadImage(obj.filename)),
+		);
+		const filteredImages = loadedImages
+			.filter((img) => img.status === "fulfilled")
+			.map((img) => img.value);
 
-		if (i === 0) {
-			slide.classList.add("active");
-		}
+		filteredImages.forEach((loadedImg, i) => {
+			const obj = imagesArr[i];
 
-		const img = document.createElement("img");
-		const filepath = "./assets/images/slideshow/";
-		img.src = `${filepath}${obj.filename}`;
-		img.alt = obj.alt;
-		slide.append(imgNumText, img);
-		slideshowContainer.insertBefore(slide, prevBtn);
-	});
+			const slide = document.createElement("div");
+			slide.className = "slide";
+			if (i === 0) slide.classList.add("active");
+
+			const imgNumText = document.createElement("div");
+			imgNumText.className = "img-number";
+			imgNumText.textContent = `${i + 1} / ${imagesArr.length}`;
+
+			const slideImg = loadedImg.cloneNode(true);
+			slideImg.alt = obj.alt;
+			slide.append(imgNumText, slideImg);
+			slideshowContainer.insertBefore(slide, prevBtn);
+
+			const thumbnail = loadedImg.cloneNode(true);
+			thumbnail.alt = `Thumbnail for ${obj.alt}`;
+			if (i === 0) thumbnail.classList.add("active");
+
+			thumbnail.addEventListener("click", () => currentSlide(i + 1));
+			thumbnailContainer.append(thumbnail);
+		});
+
+	} catch (error) {
+		console.error("Error loading images: ", error);
+	}
 };
+
+createSlidesAndThumbnails();

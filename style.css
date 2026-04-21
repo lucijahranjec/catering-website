@@ -7,17 +7,17 @@
 }
 
 @font-face {
-    font-family: 'TimesPSMT';
-    src: url('../assets/fonts/TimesNewRomanPSMTRegular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
+	font-family: "TimesPSMT";
+	src: url("../assets/fonts/TimesNewRomanPSMTRegular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'TimesPSMT';
-    src: url('../assets/fonts/TimesNewRomanPSMTBold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+	font-family: "TimesPSMT";
+	src: url("../assets/fonts/TimesNewRomanPSMTBold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
 }
 
 body {
@@ -44,7 +44,7 @@ h6,
 
 p,
 button {
-	font-family: 'TimesPSMT', 'Times New Roman', Georgia, serif;
+	font-family: "TimesPSMT", "Times New Roman", Georgia, serif;
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
@@ -92,15 +92,15 @@ header {
 
 	div:nth-child(2) {
 		position: relative;
+	}
 
-		h1 {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			padding: 34px 22px;
-			font-size: 33px;
-			color: #54575d;
-		}
+	div:nth-child(2) h1 {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 34px 22px;
+		font-size: 33px;
+		color: #54575d;
 	}
 }
 
@@ -160,7 +160,9 @@ main {
 	justify-content: center;
 }
 
-#about, #menu, #contact {
+#about,
+#menu,
+#contact {
 	scroll-margin-top: 75px;
 }
 
@@ -168,13 +170,11 @@ main {
 	font-size: 33px;
 }
 
-#about {
-	img {
-		flex: 1;
-		/* min-width: 0; */
-		padding: 12px 24px;
-		opacity: 0.75;
-	}
+#about img {
+	flex: 1;
+	/* min-width: 0; */
+	padding: 12px 24px;
+	opacity: 0.75;
 }
 
 #about > div {
@@ -262,7 +262,6 @@ main {
 		height: 2px;
 		background-color: #cfdfa9;
 		transition: width 0.3s ease;
-;
 	}
 
 	> div .dish-item > h3:hover::after {
@@ -279,7 +278,7 @@ main {
 	min-width: 0;
 	width: 100%;
 
-	.section-h2 {
+	 .section-h2 {
 		margin-bottom: 30px;
 	}
 
@@ -338,16 +337,23 @@ footer {
 
 /*---------------------------------------------SLIDESHOW---------*/
 #dish-slideshow-container {
-	position: relative;
 	max-width: 100%;
+	text-align: center; /* + inline-block = center slide img while keeping slide-container's width img's width*/
+	background-color: #ededef;
+	padding-top: 40px;
+
+	#slide-container {
+		position: relative;
+		display: inline-block;
+	}
 
 	.slide {
 		display: none;
+		vertical-align: top; /*Remove space under img*/
 	}
 
 	.slide.active {
-		display: block;
-		width: 100%;
+		display: inline-block;
 	}
 
 	.slide img {
@@ -377,9 +383,10 @@ footer {
 		z-index: 2;
 	}
 
-	.prev, .next {
+	.prev,
+	.next {
 		position: absolute;
-		top: 49%;
+		top: 47%;
 		border: none;
 		background-color: rgba(0, 0, 0, 0.5);
 		padding: 5px 10px;
@@ -387,7 +394,6 @@ footer {
 		color: white;
 		cursor: pointer;
 		font-size: 30px;
-		font-style: bold;
 		z-index: 2;
 	}
 
@@ -400,18 +406,20 @@ footer {
 	}
 
 	#thumbnail-container {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+		display: flex;
+		flex-flow: row wrap;
+		max-width: 100%;
 	}
 
 	#thumbnail-container img {
 		height: 80px;
 		width: auto;
 		cursor: pointer;
-		border-radius: 5px;
 		object-fit: cover;
 		opacity: 0.6;
-		transition: opacity 0.3s, border 0.3s;
+		transition:
+			opacity 0.3s,
+			border 0.3s;
 	}
 
 	#thumbnail-container img:hover {
@@ -423,6 +431,14 @@ footer {
 		border: 2px solid #c7b17a;
 	}
 
+	#slide-caption {
+		display: grid;
+		place-items: center;
+		color: #495264;
+		background-color: #ededef;
+		font-size: 18px;
+		height: 55px;
+	}
 }
 
 /*---------------------------------------------MEDIA QUERIES---------*/

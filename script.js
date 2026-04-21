@@ -60,10 +60,10 @@ nameInput.addEventListener("input", (e) => {
 });
 
 //--------------Slideshow
-const slideshowContainer = document.getElementById("dish-slideshow-container");
-const prevBtn = slideshowContainer.querySelector(".prev");
+const slideContainer = document.getElementById("slide-container");
+const prevBtn = slideContainer.querySelector(".prev");
 const thumbnailContainer = document.getElementById("thumbnail-container");
-const imgCaption = slideshowContainer.querySelector(".caption-container h3");
+const imgCaption = slideContainer.querySelector(".caption-container h3");
 
 const imagesArr = [
 	{ filename: "dish1.jpeg", alt: "Bean & Corn Curry" },
@@ -81,23 +81,24 @@ const imagesArr = [
 	{ filename: "dish13.jpeg", alt: "Chickpea & Walnut Pie" },
 ];
 
-const loadImage = (filename) => {
+const loadImage = (obj) => {
 	return new Promise((resolve, reject) => {
 		const img = new Image();
 
 		img.addEventListener("load", () => resolve(img));
 		img.addEventListener("error", () => {
-			reject(new Error(`Failed to load: ${filename}`));
+			reject(new Error(`Failed to load: ${obj.filename}`));
 		});
 
-		img.src = `./assets/images/slideshow/${filename}`;
+		img.src = `./assets/images/slideshow/${obj.filename}`;
+		img.alt = obj.alt;
 	});
 };
 
 const createSlidesAndThumbnails = async () => {
 	try {
 		const loadedImages = await Promise.allSettled(
-			imagesArr.map((obj) => loadImage(obj.filename)),
+			imagesArr.map((obj) => loadImage(obj)),
 		);
 		const filteredImages = loadedImages
 			.filter((img) => img.status === "fulfilled")
@@ -115,12 +116,11 @@ const createSlidesAndThumbnails = async () => {
 			imgNumText.textContent = `${i + 1} / ${imagesArr.length}`;
 
 			const slideImg = loadedImg.cloneNode(true);
-			slideImg.alt = obj.alt;
 			slide.append(imgNumText, slideImg);
-			slideshowContainer.insertBefore(slide, prevBtn);
+			slideContainer.insertBefore(slide, prevBtn);
 
 			const thumbnail = loadedImg.cloneNode(true);
-			thumbnail.alt = `Thumbnail for ${obj.alt}`;
+			thumbnail.alt = `Thumbnail for ${thumbnail.alt}`;
 			if (i === 0) thumbnail.classList.add("active");
 
 			thumbnail.addEventListener("click", () => currentSlide(i + 1));

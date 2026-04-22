@@ -62,8 +62,10 @@ nameInput.addEventListener("input", (e) => {
 //--------------Slideshow
 const slideContainer = document.getElementById("slide-container");
 const prevBtn = slideContainer.querySelector(".prev");
+const nextBtn = slideContainer.querySelector(".next");
 const thumbnailContainer = document.getElementById("thumbnail-container");
-const imgCaption = slideContainer.querySelector(".caption-container h3");
+const slideCaption = slideContainer.querySelector("h3.slide-caption");
+let slidesNodeList, thumbnailsNodeList;
 
 const imagesArr = [
 	{ filename: "dish1.jpeg", alt: "Bean & Corn Curry" },
@@ -120,12 +122,17 @@ const createSlidesAndThumbnails = async () => {
 			slideContainer.insertBefore(slide, prevBtn);
 
 			const thumbnail = loadedImg.cloneNode(true);
+			thumbnail.className = "thumbnail";
+			thumbnail.dataset.thumbIndex = i;
 			thumbnail.alt = `Thumbnail for ${thumbnail.alt}`;
 			if (i === 0) thumbnail.classList.add("active");
 
-			thumbnail.addEventListener("click", () => currentSlide(i + 1));
+			// thumbnail.addEventListener("click", () => currentSlide(i + 1));
 			thumbnailContainer.append(thumbnail);
 		});
+
+		slidesNodeList = document.querySelectorAll(".slide");
+		thumbnailsNodeList = document.querySelectorAll(".thumbnail");
 
 	} catch (error) {
 		console.error("Error loading images: ", error);
@@ -133,3 +140,39 @@ const createSlidesAndThumbnails = async () => {
 };
 
 createSlidesAndThumbnails();
+let currentSlideIndex = 0;
+
+const showSlides = (newIndex) => {
+	//User reached end, jump to beginning
+	if (newIndex > slidesNodeList.length - 1) {
+		newIndex = 0;
+	}
+
+	//User reached beginning, jump to end
+	if (newIndex < 0) {
+		newIndex = slidesNodeList.length - 1;
+	}
+
+	slidesNodeList[currentSlideIndex].classList.remove("active");
+	thumbnailsNodeList[currentSlideIndex].classList.remove("active");
+
+	slidesNodeList[newIndex].classList.add("active");
+	thumbnailsNodeList[newIndex].classList.add("active");
+
+	currentSlideIndex = newIndex;
+};
+
+prevBtn.addEventListener("click", (e) => {
+	e.stopPropagation();
+	showSlides(currentSlideIndex - 1);
+});
+
+nextBtn.addEventListener("click", (e) => {
+	e.stopPropagation();
+	showSlides(currentSlideIndex + 1);
+});
+
+thumbnailContainer.addEventListener("click", (e) => {
+	e.stopPropagation();
+	showSlides(e.target.dataset.thumbIndex);
+})

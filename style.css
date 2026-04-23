@@ -337,8 +337,9 @@ footer {
 
 /*---------------------------------------------SLIDESHOW---------*/
 #dish-slideshow-container {
+	position: relative;
 	max-width: 100%;
-	text-align: center; /* + inline-block = center slide img while keeping slide-container's width img's width*/
+	text-align: center; /* + inline-block = center slide img while keeping slide-container's width img's width */
 	background-color: #ededef;
 	padding-top: 40px;
 
@@ -375,40 +376,43 @@ footer {
 		position: absolute;
 		top: 10px;
 		left: 10px;
-		color: white;
-		background-color: rgba(0, 0, 0, 0.5);
+		color: rgba(0, 0, 0, 0.5);
+		background-color: rgba(207, 223, 169, 0.8);
 		padding: 5px 10px;
 		border-radius: 8px;
-		font-size: 13px;
+		font-size: 15px;
+		font-weight: 700;
 		z-index: 2;
 	}
 
 	.prev,
 	.next {
 		position: absolute;
-		top: 47%;
+		top: 43%;
 		border: none;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: rgba(207, 223, 169, 0.7);
 		padding: 5px 10px;
 		border-radius: 8px;
-		color: white;
+		color: rgba(0, 0, 0, 0.35);
 		cursor: pointer;
 		font-size: 30px;
+		font-weight: 700;
 		z-index: 2;
 	}
 
 	.prev {
-		left: 10px;
+		left: 30px;
 	}
 
 	.next {
-		right: 10px;
+		right: 30px;
 	}
 
 	#thumbnail-container {
 		display: flex;
 		flex-flow: row wrap;
 		max-width: 100%;
+		gap: 4px;
 	}
 
 	#thumbnail-container img {

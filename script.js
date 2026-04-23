@@ -61,10 +61,10 @@ nameInput.addEventListener("input", (e) => {
 
 //--------------Slideshow
 const slideContainer = document.getElementById("slide-container");
-const prevBtn = slideContainer.querySelector(".prev");
-const nextBtn = slideContainer.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
 const thumbnailContainer = document.getElementById("thumbnail-container");
-const slideCaption = slideContainer.querySelector("h3.slide-caption");
+const slideCaption = document.getElementById("slide-caption");
 let slidesNodeList, thumbnailsNodeList;
 
 const imagesArr = [
@@ -119,15 +119,13 @@ const createSlidesAndThumbnails = async () => {
 
 			const slideImg = loadedImg.cloneNode(true);
 			slide.append(imgNumText, slideImg);
-			slideContainer.insertBefore(slide, prevBtn);
+			slideContainer.insertBefore(slide, slideCaption);
 
 			const thumbnail = loadedImg.cloneNode(true);
 			thumbnail.className = "thumbnail";
 			thumbnail.dataset.thumbIndex = i;
 			thumbnail.alt = `Thumbnail for ${thumbnail.alt}`;
 			if (i === 0) thumbnail.classList.add("active");
-
-			// thumbnail.addEventListener("click", () => currentSlide(i + 1));
 			thumbnailContainer.append(thumbnail);
 		});
 
@@ -153,6 +151,25 @@ const showSlides = (newIndex) => {
 		newIndex = slidesNodeList.length - 1;
 	}
 
+	console.log("BEFORE:", {
+		newIndex,
+		currentSlideIndex,
+		slidesLength: slidesNodeList?.length,
+		thumbsLength: thumbnailsNodeList?.length
+	});
+
+	if (!slidesNodeList || !thumbnailsNodeList) {
+		console.error("NodeLists not ready");
+		return;
+	}
+
+	if (slidesNodeList[currentSlideIndex] === undefined) {
+		console.error("❌ BAD CURRENT INDEX:", currentSlideIndex);
+		console.log("slides:", slidesNodeList);
+		debugger;
+	}
+	
+	
 	slidesNodeList[currentSlideIndex].classList.remove("active");
 	thumbnailsNodeList[currentSlideIndex].classList.remove("active");
 
@@ -174,5 +191,8 @@ nextBtn.addEventListener("click", (e) => {
 
 thumbnailContainer.addEventListener("click", (e) => {
 	e.stopPropagation();
-	showSlides(e.target.dataset.thumbIndex);
+	
+	if (!e.target.classList.contains("thumbnail")) return;
+	const index = Number(e.target.dataset.thumbIndex);
+	showSlides(index);
 })

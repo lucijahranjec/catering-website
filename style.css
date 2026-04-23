@@ -420,6 +420,7 @@ footer {
 		width: auto;
 		cursor: pointer;
 		object-fit: cover;
+		border: 3px solid transparent;
 		opacity: 0.6;
 		transition:
 			opacity 0.3s,
@@ -432,7 +433,7 @@ footer {
 
 	#thumbnail-container img.active {
 		opacity: 1;
-		border: 2px solid #c7b17a;
+		border: 3px solid #abc56c;
 	}
 
 	#slide-caption {

@@ -118,9 +118,10 @@ const createSlidesAndThumbnails = async () => {
 			imgNumText.className = "img-number";
 			imgNumText.textContent = `${i + 1} / ${imagesArr.length}`;
 
-			const slideImg = loadedImg.cloneNode(true);
+			const slideImg = loadedImg.cloneNode();
 			slide.append(imgNumText, slideImg);
 			slideContainer.insertBefore(slide, slideCaption);
+			slideCaption.innerText = slideImg.alt;
 
 			const thumbnail = loadedImg.cloneNode(true);
 			thumbnail.className = "thumbnail";
@@ -130,6 +131,7 @@ const createSlidesAndThumbnails = async () => {
 			thumbnailContainer.append(thumbnail);
 		});
 
+		//Used for changing active photo
 		slidesNodeList = document.querySelectorAll(".slide");
 		thumbnailsNodeList = document.querySelectorAll(".thumbnail");
 
@@ -152,28 +154,16 @@ const showSlides = (newIndex) => {
 		newIndex = slidesNodeList.length - 1;
 	}
 
-	console.log("BEFORE:", {
-		newIndex,
-		currentSlideIndex,
-		slidesLength: slidesNodeList?.length,
-		thumbsLength: thumbnailsNodeList?.length
-	});
-
 	if (!slidesNodeList || !thumbnailsNodeList) {
-		console.error("NodeLists not ready");
+		console.error("Empty nodeLists in slide toggle");
 		return;
 	}
 
-	if (slidesNodeList[currentSlideIndex] === undefined) {
-		console.error("❌ BAD CURRENT INDEX:", currentSlideIndex);
-		console.log("slides:", slidesNodeList);
-		debugger;
-	}
-	
-	
 	slidesNodeList[currentSlideIndex].classList.remove("active");
 	thumbnailsNodeList[currentSlideIndex].classList.remove("active");
 
+	console.log("nodelist item", slidesNodeList[newIndex]);
+	
 	slidesNodeList[newIndex].classList.add("active");
 	thumbnailsNodeList[newIndex].classList.add("active");
 

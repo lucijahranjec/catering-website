@@ -102,6 +102,7 @@ const createSlidesAndThumbnails = async () => {
 		const loadedImages = await Promise.allSettled(
 			imagesArr.map((obj) => loadImage(obj)),
 		);
+		
 		const filteredImages = loadedImages
 			.filter((img) => img.status === "fulfilled")
 			.map((img) => img.value);

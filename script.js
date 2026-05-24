@@ -186,3 +186,23 @@ thumbnailContainer.addEventListener("click", (e) => {
 	const index = Number(e.target.dataset.thumbIndex);
 	showSlides(index);
 });
+
+const handleSlideshowArrowKeys = (e) => {
+	switch (e.key) {
+		case "ArrowLeft":
+			e.preventDefault(); //Prevents potential page scroll
+			showSlides(currentSlideIndex - 1);
+			break;
+	
+		case "ArrowRight":
+			e.preventDefault();
+			showSlides(currentSlideIndex + 1);
+			break;
+	}
+};
+
+prevBtn.addEventListener("keydown", handleSlideshowArrowKeys);
+nextBtn.addEventListener("keydown", handleSlideshowArrowKeys);
+slideContainer.addEventListener("keydown", handleSlideshowArrowKeys);
+thumbnailContainer.setAttribute("tabindex", "0"); //Makes the element focusable for keydown event
+thumbnailContainer.addEventListener("keydown", handleSlideshowArrowKeys);

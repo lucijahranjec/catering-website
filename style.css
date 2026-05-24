@@ -467,6 +467,9 @@ footer {
 	}
 }
 
+.prev:focus, .next:focus, #thumbnail-container:focus {
+	outline: none;
+}
 
 /*---------------------------------------------MEDIA QUERIES---------*/
 @media screen and (max-width: 600px) {

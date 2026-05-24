@@ -65,7 +65,7 @@ const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const thumbnailContainer = document.getElementById("thumbnail-container");
 const slideCaption = document.getElementById("slide-caption");
-let slidesNodeList, thumbnailsNodeList;
+let slides = [];
 
 const imagesArr = [
 	{ filename: "dish1.jpeg", alt: "Bean & Corn Curry" },
@@ -102,38 +102,38 @@ const createSlidesAndThumbnails = async () => {
 		const loadedImages = await Promise.allSettled(
 			imagesArr.map((obj) => loadImage(obj)),
 		);
-		
-		const filteredImages = loadedImages
-			.filter((img) => img.status === "fulfilled")
-			.map((img) => img.value);
 
-		filteredImages.forEach((loadedImg, i) => {
-			const obj = imagesArr[i];
+		slides = loadedImages
+			.filter((result) => result.status === "fulfilled")
+			.map((result, i) => {
+				const img = result.value;
 
-			const slide = document.createElement("div");
-			slide.className = "slide";
-			if (i === 0) slide.classList.add("active");
+				const slide = document.createElement("div");
+				slide.className = "slide";
+				if (i === 0) slide.classList.add("active");
 
-			const imgNumText = document.createElement("div");
-			imgNumText.className = "img-number";
-			imgNumText.textContent = `${i + 1} / ${imagesArr.length}`;
+				const imgNumText = document.createElement("div");
+				imgNumText.className = "img-number";
+				imgNumText.textContent = `${i + 1} / ${imagesArr.length}`;
 
-			const slideImg = loadedImg.cloneNode();
-			slide.append(imgNumText, slideImg);
-			slideContainer.insertBefore(slide, slideCaption);
-			slideCaption.innerText = slideImg.alt;
+				const slideImg = img.cloneNode();
+				slide.append(imgNumText, slideImg);
+				slideContainer.insertBefore(slide, slideCaption);
+				slideCaption.innerText = slideImg.alt;
 
-			const thumbnail = loadedImg.cloneNode(true);
-			thumbnail.className = "thumbnail";
-			thumbnail.dataset.thumbIndex = i;
-			thumbnail.alt = `Thumbnail for ${thumbnail.alt}`;
-			if (i === 0) thumbnail.classList.add("active");
-			thumbnailContainer.append(thumbnail);
-		});
+				const thumbnail = img.cloneNode(true);
+				thumbnail.className = "thumbnail";
+				thumbnail.dataset.thumbIndex = i;
+				thumbnail.alt = `Thumbnail for ${thumbnail.alt}`;
+				if (i === 0) thumbnail.classList.add("active");
+				thumbnailContainer.append(thumbnail);
 
-		//Used for changing active photo
-		slidesNodeList = document.querySelectorAll(".slide");
-		thumbnailsNodeList = document.querySelectorAll(".thumbnail");
+				return {
+					slide: slide,
+					thumbnail: thumbnail,
+					alt: img.alt,
+				};
+			});
 
 	} catch (error) {
 		console.error("Error loading images: ", error);
@@ -145,28 +145,27 @@ let currentSlideIndex = 0;
 
 const showSlides = (newIndex) => {
 	//User reached end, jump to beginning
-	if (newIndex > slidesNodeList.length - 1) {
+	if (newIndex > slides.length - 1) {
 		newIndex = 0;
 	}
 
 	//User reached beginning, jump to end
 	if (newIndex < 0) {
-		newIndex = slidesNodeList.length - 1;
+		newIndex = slides.length - 1;
 	}
 
-	if (!slidesNodeList || !thumbnailsNodeList) {
+	if (!slides.length) {
 		console.error("Empty nodeLists in slide toggle");
 		return;
 	}
 
-	slidesNodeList[currentSlideIndex].classList.remove("active");
-	thumbnailsNodeList[currentSlideIndex].classList.remove("active");
+	slides[currentSlideIndex].slide.classList.remove("active");
+	slides[currentSlideIndex].thumbnail.classList.remove("active");
 
-	console.log("nodelist item", slidesNodeList[newIndex]);
-	
-	slidesNodeList[newIndex].classList.add("active");
-	thumbnailsNodeList[newIndex].classList.add("active");
+	slides[newIndex].slide.classList.add("active");
+	slides[newIndex].thumbnail.classList.add("active");
 
+	slideCaption.textContent = slides[newIndex].alt;
 	currentSlideIndex = newIndex;
 };
 
@@ -182,8 +181,8 @@ nextBtn.addEventListener("click", (e) => {
 
 thumbnailContainer.addEventListener("click", (e) => {
 	e.stopPropagation();
-	
+
 	if (!e.target.classList.contains("thumbnail")) return;
 	const index = Number(e.target.dataset.thumbIndex);
 	showSlides(index);
-})
+});

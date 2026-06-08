@@ -1,3 +1,5 @@
+/*---------GENERAL----------*/
+
 *,
 *::after,
 *::before {
@@ -113,29 +115,25 @@ h3 {
 	letter-spacing: 5px;
 }
 
-nav ul {
+nav {
 	display: flex;
 	flex-direction: row;
 	list-style-type: none;
 
-	li {
-		padding: 8px 16px;
-	}
-
-	li:hover {
-		cursor: pointer;
-		background-color: #cccccc;
-	}
-
 	a {
 		text-decoration: none;
 		color: black;
+		padding: 8px 16px;
+	}
+
+	a:hover {
+		cursor: pointer;
+		background-color: #cccccc;
 	}
 }
 
 #hamburger {
 	display: none;
-	/* anchor-name: --hamburger; */
 	background: none;
 	border: none;
 	height: 24px;
@@ -190,7 +188,6 @@ main {
 
 #about img {
 	flex: 1;
-	/* min-width: 0; */
 	padding: 12px 24px;
 	opacity: 0.75;
 }
@@ -258,8 +255,6 @@ main {
 	}
 
 	> div .dish-item p {
-		/* display: flex; */
-		/* justify-content: space-between; */
 		font-size: 15px;
 		color: rgb(117, 117, 117);
 		padding: 10px 0;
@@ -413,7 +408,6 @@ footer {
 		max-width: 100%;
 		max-height: 100%;
 		width: auto;
-		/* width: 100%; */
 		height: auto;
 		opacity: 0.75;
 		object-fit: contain;
@@ -483,21 +477,21 @@ footer {
 }
 
 /*---------------------------------------------MEDIA QUERIES---------*/
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 720px) { 
 	header > div nav {
 		position: absolute;
 		top: 54.5px;
 		right: 0;
 	}
 
-	header > div nav ul {
+	header > div nav {
 		display: none;
 		flex-direction: column;
 		align-items: flex-end;
 		background: #fff;
 	}
 
-	header > div nav ul li {
+	header > div nav a {
 		width: 100%;
 		text-align: end;
 		border-top: 2px solid #ccc;
@@ -511,11 +505,6 @@ footer {
 
 	#hamburger {
 		display: block;
-	}
-}
-
-@media screen and (min-width: 720px) {
-	header > div nav {
-		display: block;
+		cursor: pointer;
 	}
 }

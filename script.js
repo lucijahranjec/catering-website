@@ -3,7 +3,6 @@ const nameInput = document.getElementById("reservationName");
 const servingSizeInput = document.getElementById("servingSize");
 const orderDateInput = document.getElementById("orderDate");
 const messageInput = document.getElementById("message");
-const hamburgerBtn = document.getElementById("hamburger");
 
 const setDateConstraintsAndValue = (inputElem) => {
 	const currentDate = new Date();
@@ -60,12 +59,13 @@ nameInput.addEventListener("input", (e) => {
 	}
 });
 
-//--------------Slideshow
+//--------------Custom slideshow
 const slideContainer = document.getElementById("slide-container");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const thumbnailContainer = document.getElementById("thumbnail-container");
 const slideCaption = document.getElementById("slide-caption");
+
 let slides = [];
 
 const imagesArr = [
@@ -207,3 +207,20 @@ nextBtn.addEventListener("keydown", handleSlideshowArrowKeys);
 slideContainer.addEventListener("keydown", handleSlideshowArrowKeys);
 thumbnailContainer.setAttribute("tabindex", "0"); //Makes the element focusable for keydown event
 thumbnailContainer.addEventListener("keydown", handleSlideshowArrowKeys);
+
+
+//-----------------------Menu nav
+const hamburgerBtn = document.getElementById("hamburger");
+const menuNav = document.querySelector("header nav");
+let isMenuVisible = false;
+
+hamburgerBtn.addEventListener("click", (e) => {
+	e.stopPropagation();
+	isMenuVisible = !isMenuVisible;
+
+	if (isMenuVisible) {
+		menuNav.style.display = "flex";
+	} else {
+		menuNav.style.display = "none";
+	}
+});

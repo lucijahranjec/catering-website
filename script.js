@@ -3,6 +3,7 @@ const nameInput = document.getElementById("reservationName");
 const servingSizeInput = document.getElementById("servingSize");
 const orderDateInput = document.getElementById("orderDate");
 const messageInput = document.getElementById("message");
+const hamburgerBtn = document.getElementById("hamburger");
 
 const setDateConstraintsAndValue = (inputElem) => {
 	const currentDate = new Date();

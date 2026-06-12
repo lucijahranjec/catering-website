@@ -387,6 +387,7 @@ footer {
 		font-size: 16px;
 		min-height: 0;
 		flex-shrink: 0;
+		text-align: center;
 	}
 
 	.slide {
@@ -477,18 +478,18 @@ footer {
 }
 
 /*---------------------------------------------MEDIA QUERIES---------*/
-@media screen and (max-width: 720px) { 
+@media screen and (max-width: 720px) {
 	header > div nav {
 		position: absolute;
 		top: 54.5px;
 		right: 0;
-	}
-
-	header > div nav {
-		display: none;
 		flex-direction: column;
 		align-items: flex-end;
 		background: #fff;
+		opacity: 0;
+		pointer-events: none; /*prevent clicks while menu is closed*/
+		transition: opacity var(--duration) ease;
+		--duration: 200ms;
 	}
 
 	header > div nav a {
@@ -496,6 +497,12 @@ footer {
 		text-align: end;
 		border-top: 2px solid #ccc;
 		background: #f5f5f5;
+	}
+
+	header > div nav.open {
+		opacity: 1;
+		pointer-events: auto;
+		--duration: 400ms;
 	}
 
 	#about,

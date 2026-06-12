@@ -135,7 +135,6 @@ const createSlidesAndThumbnails = async () => {
 					alt: img.alt,
 				};
 			});
-
 	} catch (error) {
 		console.error("Error loading images: ", error);
 	}
@@ -194,7 +193,7 @@ const handleSlideshowArrowKeys = (e) => {
 			e.preventDefault(); //Prevents potential page scroll
 			showSlides(currentSlideIndex - 1);
 			break;
-	
+
 		case "ArrowRight":
 			e.preventDefault();
 			showSlides(currentSlideIndex + 1);
@@ -208,19 +207,29 @@ slideContainer.addEventListener("keydown", handleSlideshowArrowKeys);
 thumbnailContainer.setAttribute("tabindex", "0"); //Makes the element focusable for keydown event
 thumbnailContainer.addEventListener("keydown", handleSlideshowArrowKeys);
 
-
 //-----------------------Menu nav
 const hamburgerBtn = document.getElementById("hamburger");
-const menuNav = document.querySelector("header nav");
-let isMenuVisible = false;
+const menu = document.querySelector("header nav");
 
-hamburgerBtn.addEventListener("click", (e) => {
+const toggleMenu = (e) => {
 	e.stopPropagation();
-	isMenuVisible = !isMenuVisible;
+	menu.classList.toggle("open");
+};
 
-	if (isMenuVisible) {
-		menuNav.style.display = "flex";
-	} else {
-		menuNav.style.display = "none";
+hamburgerBtn.addEventListener("click", toggleMenu);
+menu.addEventListener("click", toggleMenu);
+document.addEventListener("click", (e) => {
+	if (
+		menu.classList.contains("open") &&
+		!hamburgerBtn.contains(e.target) &&
+		!menu.contains(e.target)
+	) {
+		menu.classList.remove("open");
+	}
+});
+
+document.addEventListener("keydown", (e) => {
+	if (e.key !== "Tab" && menu.classList.contains("open")) {
+		menu.classList.remove("open");
 	}
 });

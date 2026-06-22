@@ -59,12 +59,13 @@ nameInput.addEventListener("input", (e) => {
 	}
 });
 
-//--------------Slideshow
+//--------------Custom slideshow
 const slideContainer = document.getElementById("slide-container");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const thumbnailContainer = document.getElementById("thumbnail-container");
 const slideCaption = document.getElementById("slide-caption");
+
 let slides = [];
 
 const imagesArr = [
@@ -134,7 +135,6 @@ const createSlidesAndThumbnails = async () => {
 					alt: img.alt,
 				};
 			});
-
 	} catch (error) {
 		console.error("Error loading images: ", error);
 	}
@@ -193,7 +193,7 @@ const handleSlideshowArrowKeys = (e) => {
 			e.preventDefault(); //Prevents potential page scroll
 			showSlides(currentSlideIndex - 1);
 			break;
-	
+
 		case "ArrowRight":
 			e.preventDefault();
 			showSlides(currentSlideIndex + 1);
@@ -206,3 +206,30 @@ nextBtn.addEventListener("keydown", handleSlideshowArrowKeys);
 slideContainer.addEventListener("keydown", handleSlideshowArrowKeys);
 thumbnailContainer.setAttribute("tabindex", "0"); //Makes the element focusable for keydown event
 thumbnailContainer.addEventListener("keydown", handleSlideshowArrowKeys);
+
+//-----------------------Menu nav
+const hamburgerBtn = document.getElementById("hamburger");
+const menu = document.querySelector("header nav");
+
+const toggleMenu = (e) => {
+	e.stopPropagation();
+	menu.classList.toggle("open");
+};
+
+hamburgerBtn.addEventListener("click", toggleMenu);
+menu.addEventListener("click", toggleMenu);
+document.addEventListener("click", (e) => {
+	if (
+		menu.classList.contains("open") &&
+		!hamburgerBtn.contains(e.target) &&
+		!menu.contains(e.target)
+	) {
+		menu.classList.remove("open");
+	}
+});
+
+document.addEventListener("keydown", (e) => {
+	if (e.key !== "Tab" && menu.classList.contains("open")) {
+		menu.classList.remove("open");
+	}
+});

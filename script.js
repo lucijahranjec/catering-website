@@ -213,7 +213,11 @@ const menu = document.querySelector("header nav");
 
 const toggleMenu = (e) => {
 	e.stopPropagation();
-	menu.classList.toggle("open");
+	const isMobile = window.matchMedia("(max-width: 720px)").matches;
+
+	if (isMobile) {
+		menu.classList.toggle("open");
+	}
 };
 
 hamburgerBtn.addEventListener("click", toggleMenu);

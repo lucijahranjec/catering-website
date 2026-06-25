@@ -1,65 +1,3 @@
-//----------Change suggested order date to +5 days
-const nameInput = document.getElementById("reservationName");
-const servingSizeInput = document.getElementById("servingSize");
-const orderDateInput = document.getElementById("orderDate");
-const messageInput = document.getElementById("message");
-
-const setDateConstraintsAndValue = (inputElem) => {
-	const currentDate = new Date();
-	currentDate.setDate(currentDate.getDate() + 3);
-	currentDate.setHours(12, 0, 0, 0);
-
-	const minDate = new Date();
-	minDate.setDate(minDate.getDate() + 3); //Order possible min. 3 days from current date
-	minDate.setHours(0, 0, 0, 0);
-
-	const maxDate = new Date();
-	maxDate.setMonth(maxDate.getMonth() + 6); //Order possible up to 6 months in advance
-	maxDate.setHours(0, 0, 0, 0);
-
-	const format = (date) => {
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		const day = String(date.getDate()).padStart(2, "0");
-		const hours = String(date.getHours()).padStart(2, "0");
-		const minutes = String(date.getMinutes()).padStart(2, "0");
-
-		return `${year}-${month}-${day}T${hours}:${minutes}`;
-	};
-
-	inputElem.value = format(currentDate);
-	inputElem.min = format(minDate);
-	inputElem.max = format(maxDate);
-};
-
-setDateConstraintsAndValue(orderDateInput);
-
-//-------------Form submission & reset
-const contactForm = document.querySelector("#contact > form");
-contactForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-
-	nameInput.value = "";
-	servingSizeInput.value = "";
-	setDateConstraintsAndValue(orderDateInput);
-	messageInput.value = "";
-	alert("Your message");
-});
-
-//-------------Name input validation
-nameInput.addEventListener("input", (e) => {
-	const target = e.target;
-	const isInvalidChar = /[^a-zA-Z\s]/.test(target.value);
-
-	if (isInvalidChar) {
-		target.setCustomValidity("Only letters and spaces are allowed");
-		target.reportValidity(); //Show errors
-	} else {
-		target.setCustomValidity(""); //Clear errors
-	}
-});
-
-//--------------Custom slideshow
 const slideContainer = document.getElementById("slide-container");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
@@ -67,6 +5,7 @@ const thumbnailContainer = document.getElementById("thumbnail-container");
 const slideCaption = document.getElementById("slide-caption");
 
 let slides = [];
+let currentSlideIndex = 0;
 
 const imagesArr = [
 	{ filename: "dish1.jpeg", alt: "Bean & Corn Curry" },
@@ -140,9 +79,6 @@ const createSlidesAndThumbnails = async () => {
 	}
 };
 
-createSlidesAndThumbnails();
-let currentSlideIndex = 0;
-
 const showSlides = (newIndex) => {
 	//User reached end, jump to beginning
 	if (newIndex > slides.length - 1) {
@@ -169,24 +105,6 @@ const showSlides = (newIndex) => {
 	currentSlideIndex = newIndex;
 };
 
-prevBtn.addEventListener("click", (e) => {
-	e.stopPropagation();
-	showSlides(currentSlideIndex - 1);
-});
-
-nextBtn.addEventListener("click", (e) => {
-	e.stopPropagation();
-	showSlides(currentSlideIndex + 1);
-});
-
-thumbnailContainer.addEventListener("click", (e) => {
-	e.stopPropagation();
-
-	if (!e.target.classList.contains("thumbnail")) return;
-	const index = Number(e.target.dataset.thumbIndex);
-	showSlides(index);
-});
-
 const handleSlideshowArrowKeys = (e) => {
 	switch (e.key) {
 		case "ArrowLeft":
@@ -201,35 +119,30 @@ const handleSlideshowArrowKeys = (e) => {
 	}
 };
 
-prevBtn.addEventListener("keydown", handleSlideshowArrowKeys);
-nextBtn.addEventListener("keydown", handleSlideshowArrowKeys);
-slideContainer.addEventListener("keydown", handleSlideshowArrowKeys);
-thumbnailContainer.setAttribute("tabindex", "0"); //Makes the element focusable for keydown event
-thumbnailContainer.addEventListener("keydown", handleSlideshowArrowKeys);
+export const initSlideshow = () => {
+	createSlidesAndThumbnails();
 
-//-----------------------Menu nav
-const hamburgerBtn = document.getElementById("hamburger");
-const menu = document.querySelector("header nav");
+	prevBtn.addEventListener("click", (e) => {
+		e.stopPropagation();
+		showSlides(currentSlideIndex - 1);
+	});
 
-const toggleMenu = (e) => {
-	e.stopPropagation();
-	menu.classList.toggle("open");
+	nextBtn.addEventListener("click", (e) => {
+		e.stopPropagation();
+		showSlides(currentSlideIndex + 1);
+	});
+
+	thumbnailContainer.addEventListener("click", (e) => {
+		e.stopPropagation();
+
+		if (!e.target.classList.contains("thumbnail")) return;
+		const index = Number(e.target.dataset.thumbIndex);
+		showSlides(index);
+	});
+
+	prevBtn.addEventListener("keydown", handleSlideshowArrowKeys);
+	nextBtn.addEventListener("keydown", handleSlideshowArrowKeys);
+	slideContainer.addEventListener("keydown", handleSlideshowArrowKeys);
+	thumbnailContainer.setAttribute("tabindex", "0"); //Makes the element focusable for keydown event
+	thumbnailContainer.addEventListener("keydown", handleSlideshowArrowKeys);
 };
-
-hamburgerBtn.addEventListener("click", toggleMenu);
-menu.addEventListener("click", toggleMenu);
-document.addEventListener("click", (e) => {
-	if (
-		menu.classList.contains("open") &&
-		!hamburgerBtn.contains(e.target) &&
-		!menu.contains(e.target)
-	) {
-		menu.classList.remove("open");
-	}
-});
-
-document.addEventListener("keydown", (e) => {
-	if (e.key !== "Tab" && menu.classList.contains("open")) {
-		menu.classList.remove("open");
-	}
-});

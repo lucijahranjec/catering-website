@@ -484,6 +484,19 @@ footer {
 	outline: none;
 }
 
+/*---------------------------------------------SEARCHBAR-------------*/
+#searchbar {
+	background-image: url(./assets/images/magnifying-glass-svgrepo-com.svg);
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	background-size: 18px;
+	width: 44%;
+	padding: 7px 0 7px 32px;
+	border: 1px solid rgb(158, 156, 156);
+	border-radius: 20px;
+}
+
+
 /*---------------------------------------------MEDIA QUERIES---------*/
 @media screen and (max-width: 720px) {
 	header > div nav {

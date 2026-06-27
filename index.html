@@ -20,23 +20,22 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="style.css" />
-		<script type="module" src="./modules/data.js"></script>
-		<script type="module" src="./modules/slideshow.js"></script>
-		<script type="module" src="./modules/menu.js"></script>
-		<script type="module" src="./modules/contactForm.js"></script>
 		<script type="module" src="main.js"></script>
 		<title>GourMe</title>
 	</head>
 	<body>
 		<header>
 			<div>
-				<a href="/">Gourmet au Catering</a>
-				<input
-					type="search"
-					name="searchbar"
-					id="searchbar"
-					placeholder="Discover our dishes"
-				/>
+				<a href="/">GourMe</a>
+				<div id="searchbar-container">
+					<input
+						type="search"
+						name="searchbar"
+						id="searchbar"
+						placeholder="Discover our dishes"
+					/>
+					<ul id="searchbar-dropdown"></ul>
+				</div>
 				<button id="hamburger">
 					<svg
 						viewBox="0 0 24 24"

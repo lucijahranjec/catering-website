@@ -78,12 +78,12 @@ header {
 	letter-spacing: 4px;
 
 	& div:first-child {
-		position: relative;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		column-gap: 15px;
 		height: 54.5px;
-		padding: 0 16px;
+		padding: 0 32px;
 		background-color: white;
 		box-shadow:
 			0 2px 5px 0 rgba(0, 0, 0, 0.16),
@@ -97,9 +97,11 @@ header {
 	}
 
 	div:first-child > a {
-		padding: 8px 16px;
+		padding: 8px 0;
 		text-decoration: none;
 		color: inherit;
+		/* width: fit-content; */
+		flex: 0 0 auto;
 	}
 
 	div:nth-child(2) {
@@ -130,11 +132,12 @@ nav {
 	display: flex;
 	flex-direction: row;
 	list-style-type: none;
+	column-gap: 32px;
 
 	a {
 		text-decoration: none;
 		color: black;
-		padding: 8px 16px;
+		padding: 8px 0;
 	}
 
 	a:hover {
@@ -154,6 +157,52 @@ nav {
 #hamburger svg {
 	height: 24px;
 	width: 24px;
+}
+
+
+/*---------------------------------------------SEARCHBAR-------------*/
+#searchbar-container{
+	display: flex;
+	flex-direction: column;
+	width: 44%;
+	position: relative;
+}
+
+#searchbar {
+	background-image: url(./assets/images/magnifying-glass.svg);
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	background-size: 18px;
+	padding: 8px 10px 8px 34px;
+	border: 1px solid rgb(158, 156, 156);
+	border-radius: 20px;
+}
+
+#searchbar-dropdown {
+	position: absolute;
+	top: 36px;
+	left: 14px;
+	visibility: hidden;
+	list-style-type: none;
+	width: 93%;
+	height: 260px;
+	overflow-y: scroll;
+
+	li {
+		background-color: #efeef4;
+		padding: 7px 10px;
+		border: 1px solid white;
+		cursor: pointer;
+		font-size: 14px;
+	}
+
+	li.highlighted {
+		background-color: #e6e3f3;
+	}
+}
+
+#searchbar-dropdown.open {
+	visibility: visible;
 }
 
 /*---------------------------------------------MAIN---------*/
@@ -417,7 +466,6 @@ footer {
 		height: auto;
 		opacity: 0.75;
 		object-fit: contain;
-
 	}
 
 	.slide .img-number {
@@ -483,19 +531,6 @@ footer {
 #thumbnail-container:focus {
 	outline: none;
 }
-
-/*---------------------------------------------SEARCHBAR-------------*/
-#searchbar {
-	background-image: url(./assets/images/magnifying-glass-svgrepo-com.svg);
-	background-repeat: no-repeat;
-	background-position: 10px center;
-	background-size: 18px;
-	width: 44%;
-	padding: 7px 0 7px 32px;
-	border: 1px solid rgb(158, 156, 156);
-	border-radius: 20px;
-}
-
 
 /*---------------------------------------------MEDIA QUERIES---------*/
 @media screen and (max-width: 720px) {

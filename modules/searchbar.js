@@ -1,5 +1,6 @@
 import { data } from "./data.js";
 import { debounce } from "./utils.js";
+import { openDishModal } from "./dishModal.js";
 
 const inputField = document.getElementById("searchbar");
 const dropdown = document.getElementById("searchbar-dropdown");
@@ -8,36 +9,41 @@ let isNoMatches = false;
 let highligtedIndex = -1;
 let selectedMatchText = "";
 const dropdownElements = [];
+let currentMatches = [];
 
 const isDropdownOpen = () => dropdown.classList.contains("open");
 
 const resetAndCloseDropdown = () => {
 	dropdown.classList.remove("open");
 	isUserInput = false;
-	highligtedIndex = 0;
+	highligtedIndex = -1;
 	selectedMatchText = "";
 	dropdownElements.length = 0;
 };
 
-const filterResults = (data, input) => { //Returns an array of matching objects
+const filterResults = (data, input) => {
+	//Returns an array of matching objects
 	const normalizedInput = input.toLowerCase().trim();
-	return data.filter((dish) => dish.name.toLowerCase().includes(normalizedInput));
+	return data.filter((dish) =>
+		dish.name.toLowerCase().includes(normalizedInput),
+	);
 };
 
 const debouncedFilterAndRender = debounce((input) => {
-	const matches = filterResults(data, input);
-	updateDropdown(matches);
+	currentMatches = filterResults(data, input);
+	updateDropdown(currentMatches);
 }, 200);
 
 const updateDropdown = (data) => {
 	dropdown.replaceChildren(); //Clear matches
 	dropdownElements.length = 0; //Empty references
 	isNoMatches = data.length === 0;
-	const items = isNoMatches ? [{name: "No matches found"}] : data;
+	const items = isNoMatches ? [{ name: "No matches found" }] : data;
 
-	items.forEach((item) => {
+	items.forEach((item, i) => {
 		const li = document.createElement("li");
 		li.textContent = item.name;
+		li.dataset.index = i;
 		dropdown.append(li);
 		dropdownElements.push(li); //Store element reference for handling keyboard navigation
 	});
@@ -56,7 +62,6 @@ const handleInput = (e) => {
 		//Filter and update display
 		!isDropdownOpen() && dropdown.classList.add("open");
 		debouncedFilterAndRender(input);
-		
 	} else {
 		//Reset if user deleted all input
 		resetAndCloseDropdown();
@@ -88,7 +93,6 @@ const updateHighlighted = (num) => {
 		highligtedIndex = newIndex;
 	}
 	const newHighlightedElement = dropdownElements[highligtedIndex];
-	selectedMatchText = newHighlightedElement.textContent;
 	newHighlightedElement.classList.add("highlighted");
 };
 
@@ -111,9 +115,9 @@ const handleDropdownKeyboardNavigation = (e) => {
 
 			case "Enter":
 				e.preventDefault();
-				selectDropdownMatch(
-					dropdownElements[highligtedIndex].textContent,
-				);
+				const dish = currentMatches[highligtedIndex];
+				selectDropdownMatch(dish.name);
+				openDishModal(dish);
 				break;
 
 			case "Escape":
@@ -125,7 +129,6 @@ const handleDropdownKeyboardNavigation = (e) => {
 };
 
 export const initSearchbar = () => {
-
 	inputField.addEventListener("input", handleInput);
 
 	dropdown.addEventListener("click", (e) => {
@@ -133,7 +136,10 @@ export const initSearchbar = () => {
 		const target = e.target;
 
 		if (target.tagName === "LI" && !isNoMatches) {
-			selectDropdownMatch(target.textContent);
+			const index = target.dataset.index;
+			const dish = currentMatches[index];
+			selectDropdownMatch(dish.name);
+			openDishModal(dish);
 		}
 	});
 

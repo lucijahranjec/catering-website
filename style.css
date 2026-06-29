@@ -205,6 +205,27 @@ nav {
 	visibility: visible;
 }
 
+/*---------------------------------------------DISH MODAL---------*/
+#dish-modal {
+	display: flex;
+	border: 2px solid #cac3eb;
+
+	img {
+		max-height: 60%;
+	}
+
+	#dish-info-container{
+		display: flex;
+		flex-direction: column;
+		justify-items: center;
+		align-items: flex-start;
+	}
+}
+
+#dish-modal::backdrop {
+	background: #e6e3f3e2;
+}
+
 /*---------------------------------------------MAIN---------*/
 main {
 	min-width: 320px;

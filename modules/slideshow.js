@@ -1,27 +1,12 @@
+import { data } from "./data.js";
+
 const slideContainer = document.getElementById("slide-container");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const thumbnailContainer = document.getElementById("thumbnail-container");
 const slideCaption = document.getElementById("slide-caption");
-
 let slides = [];
 let currentSlideIndex = 0;
-
-const imagesArr = [
-	{ filename: "dish1.jpeg", alt: "Bean & Corn Curry" },
-	{ filename: "dish2.jpeg", alt: "Baked Pear with Toasted Almond Slivers" },
-	{ filename: "dish3.jpeg", alt: "Fig Granola" },
-	{ filename: "dish4.jpeg", alt: "Hummus" },
-	{ filename: "dish5.jpeg", alt: "Clams & Garlic Bruschette" },
-	{ filename: "dish6.jpeg", alt: "Lentil Stew with Sprouts" },
-	{ filename: "dish7.jpeg", alt: "Fresh Coconut & Pistachio Granola" },
-	{ filename: "dish8.jpeg", alt: "Fig Compote & Pecan Cream" },
-	{ filename: "dish9.jpeg", alt: "Crowned steak" },
-	{ filename: "dish10.jpeg", alt: "Strawberry, Pecan, Figs & Spinach Salad" },
-	{ filename: "dish11.jpeg", alt: "Cauliflower steak & cashew hummus" },
-	{ filename: "dish12.jpeg", alt: "Mint-Cashew Icecream" },
-	{ filename: "dish13.jpeg", alt: "Chickpea & Walnut Pie" },
-];
 
 const loadImage = (obj) => {
 	return new Promise((resolve, reject) => {
@@ -33,14 +18,14 @@ const loadImage = (obj) => {
 		});
 
 		img.src = `./assets/images/slideshow/${obj.filename}`;
-		img.alt = obj.alt;
+		img.alt = obj.name;
 	});
 };
 
 const createSlidesAndThumbnails = async () => {
 	try {
 		const loadedImages = await Promise.allSettled(
-			imagesArr.map((obj) => loadImage(obj)),
+			data.map((obj) => loadImage(obj)),
 		);
 
 		slides = loadedImages
@@ -54,7 +39,7 @@ const createSlidesAndThumbnails = async () => {
 
 				const imgNumText = document.createElement("div");
 				imgNumText.className = "img-number";
-				imgNumText.textContent = `${i + 1} / ${imagesArr.length}`;
+				imgNumText.textContent = `${i + 1} / ${data.length}`;
 
 				const slideImg = img.cloneNode();
 				slide.append(imgNumText, slideImg);
@@ -71,7 +56,7 @@ const createSlidesAndThumbnails = async () => {
 				return {
 					slide: slide,
 					thumbnail: thumbnail,
-					alt: img.alt,
+					name: img.alt,
 				};
 			});
 	} catch (error) {

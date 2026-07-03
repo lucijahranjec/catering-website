@@ -159,9 +159,8 @@ nav {
 	width: 24px;
 }
 
-
 /*---------------------------------------------SEARCHBAR-------------*/
-#searchbar-container{
+#searchbar-container {
 	display: flex;
 	flex-direction: column;
 	width: 44%;
@@ -206,24 +205,101 @@ nav {
 }
 
 /*---------------------------------------------DISH MODAL---------*/
+
 #dish-modal {
-	display: flex;
+	position: relative;
 	border: 2px solid #cac3eb;
+	max-height: min(600px, 80vh);
+	max-width: min(850px, 90vw);
+	min-width: 280px;
+	margin: auto;
 
 	img {
-		max-height: 60%;
+		align-self: flex-start;
+		max-height: 560px;
+		max-width: 40%; /* So it shrinks on resize */
+		height: auto;
+		width: auto; /* Make flex elem content width */
+		object-fit: contain;
+		padding: 20px 0 20px 20px;
 	}
 
-	#dish-info-container{
-		display: flex;
-		flex-direction: column;
-		justify-items: center;
-		align-items: flex-start;
+	button {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		background: none;
+		align-self: flex-end;
+		border: none;
+		height: 18px;
+		width: 18px;
 	}
+
+	button svg {
+		fill: #b4afcb;
+	}
+}
+
+#dish-info-container {
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	min-width: 0;
+	padding: 29px 37px 0 0;
+	row-gap: 5%;
+
+	.ingredients::first-letter {
+		text-transform: capitalize;
+	}
+
+	.price {
+		align-self: flex-end;
+		font-style: italic;
+	}
+
+	h2 {
+		font-size: clamp(1rem, 3vw, 2rem);
+	}
+
+	.description,
+	.ingredients,
+	.price {
+		font-size: clamp(0.75rem, 2vw, 1rem);
+	}
+}
+
+#dish-modal:modal {
+	display: flex;
+	flex-direction: row;
+	column-gap: 5%;
 }
 
 #dish-modal::backdrop {
 	background: #e6e3f3e2;
+}
+
+@media screen and (max-width: 550px) {
+	#dish-modal {
+		max-height: 90vh;
+		max-width: 85vw;
+	}
+
+	#dish-modal img {
+		align-self: center;
+		max-width: 60%;
+		padding: 20px 20px 0;
+	}
+
+	#dish-modal:modal {
+		flex-direction: column;
+		row-gap: 20px;
+	}
+
+	#dish-info-container {
+		row-gap: 15px;
+		padding: 0 20px 20px;
+		text-align: center;
+	}
 }
 
 /*---------------------------------------------MAIN---------*/
@@ -243,6 +319,17 @@ main {
 		margin: 10px 0;
 		height: 1px;
 		background-color: rgb(238, 238, 238);
+	}
+}
+
+@media screen and (max-width: 400px) {
+	body {
+		row-gap: 30px;
+	}
+
+	main {
+		padding: 0 30px;
+		row-gap: 30px;
 	}
 }
 

@@ -19,6 +19,7 @@ const resetAndCloseDropdown = () => {
 	highligtedIndex = -1;
 	selectedMatchText = "";
 	dropdownElements.length = 0;
+	currentMatches = [];
 };
 
 const filterResults = (data, input) => {
@@ -70,7 +71,7 @@ const handleInput = (e) => {
 
 const selectDropdownMatch = (match) => {
 	selectedMatchText = match;
-	inputField.value = match;
+	inputField.value = "";
 	resetAndCloseDropdown();
 };
 

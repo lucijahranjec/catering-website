@@ -95,9 +95,9 @@ const updateHighlighted = (num) => {
 	}
 	const newHighlightedElement = dropdownElements[highligtedIndex];
 	newHighlightedElement.classList.add("highlighted");
+	newHighlightedElement.scrollIntoView({ block: "nearest" });
 };
 
-//INPUT STOPS WORKING AFTER ARROWS NAVIGATE DROPDOWN
 const handleDropdownKeyboardNavigation = (e) => {
 	e.stopPropagation();
 
